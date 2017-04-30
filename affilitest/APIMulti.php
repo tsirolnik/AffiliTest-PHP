@@ -16,7 +16,7 @@ class APIMulti extends API {
             CURLOPT_COOKIEFILE => $this->cookiesFile,
             CURLOPT_POST => 1,
             CURLOPT_HTTPHEADER => [
-              'Authorization: AF-API '. $this->apiKey,
+              'Authorization: AT-API '. $this->apiKey,
             ]
         ];
     }

@@ -42,7 +42,7 @@ class API {
         curl_setopt($this->curl, CURLOPT_POST, 1);
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, [
-            'Authorization: AF-API '. $this->apiKey
+            'Authorization: AT-API '. $this->apiKey
         ]);
     }
 
