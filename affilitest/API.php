@@ -18,9 +18,8 @@ class API {
 
     const COOKIE_PATH = '/tmp/affilitestCookies';
 
-    function __construct($email, $password, $concurrency = 10, $cookiesFile = API::COOKIE_PATH) {
-        $this->email = $email;
-        $this->password = $password;
+    function __construct($apiKey = null, $concurrency = 10, $cookiesFile = API::COOKIE_PATH) {
+        $this->apiKey = $apiKey;
         $this->cookiesFile = $cookiesFile;
         $this->setupCurl();
     }
@@ -42,6 +41,9 @@ class API {
         curl_setopt($this->curl, CURLOPT_COOKIEFILE, $this->cookiesFile);
         curl_setopt($this->curl, CURLOPT_POST, 1);
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($this->curl, CURLOPT_HTTPHEADER, [
+            'Authorization: AF-API '. $this->apiKey
+        ]);
     }
 
     function setCookieFile($path) {
@@ -50,10 +52,10 @@ class API {
         curl_setopt($this->curl, CURLOPT_COOKIEFILE, $this->cookiesFile);
     }
 
-    function login() {
+    function login($email, $password) {
         return $this->post('login', [
-            'email' => $this->email,
-            'password' => $this->password
+            'email' => $email,
+            'password' => $password
         ]);
     }
 
@@ -75,7 +77,7 @@ class API {
     }
 
     private function post($endpoint, $data) {
-         curl_setopt($this->curl, CURLOPT_URL, API::ENDPOINTS['main'] . API::ENDPOINTS[$endpoint]);
+        curl_setopt($this->curl, CURLOPT_URL, API::ENDPOINTS['main'] . API::ENDPOINTS[$endpoint]);
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, http_build_query($data));
         return json_decode(curl_exec($this->curl));
     }

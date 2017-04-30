@@ -8,13 +8,16 @@ use CurlX;
 
 class APIMulti extends API {
 
-    function __construct($email, $password, $concurrency = 10, $cookiesFile = API::COOKIE_PATH) {
-        parent::__construct($email, $password, $concurrency, $cookiesFile);
+    function __construct($apiKey = null, $concurrency = 10, $cookiesFile = API::COOKIE_PATH) {
+        parent::__construct($apiKey, $concurrency, $cookiesFile);
         $this->agent = new CurlX\Agent($concurrency);
         $this->agent->options = [
             CURLOPT_COOKIEJAR => $this->cookiesFile,
             CURLOPT_COOKIEFILE => $this->cookiesFile,
-            CURLOPT_POST => 1
+            CURLOPT_POST => 1,
+            CURLOPT_HTTPHEADER => [
+              'Authorization: AF-API '. $this->apiKey,
+            ]
         ];
     }
 
