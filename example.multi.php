@@ -4,9 +4,9 @@
   require('affilitest/APIMulti.php');
 
   // Concurrency of 5
-  $api = new AffiliTest\APIMulti('<email>', '<password>', 5);
+  $api = new AffiliTest\APIMulti(null, 5);
 
-  var_dump($api->login());
+  var_dump($api->login('<email>', '<password>'));
 
   // Needed as curl saves cookies to disk only on curl_close
   $api->closeCurl();
