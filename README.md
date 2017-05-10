@@ -1,6 +1,10 @@
 # AffiliTest-PHP
 AffiliTest's API implemented in PHP
 
+## Installation
+  * Install composer as instructed [here](https://getcomposer.org/doc/00-intro.md)
+  * Install the dependencies, using composer, `php composer.phar install` or `composer install`
+  * You're ready to go
 
 ## Examples of usage
 
