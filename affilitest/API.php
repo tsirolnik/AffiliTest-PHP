@@ -13,7 +13,8 @@ class API {
         'login' => '/user/login',
         'test' => '/api/v1/test',
         'compareToPreview' => '/api/v1/compareToPreview',
-        'appInfo' => '/api/appInfo'
+        'appInfo' => '/api/v1/appInfo',
+        'callsLeft' => '/api/v1/callsLeft'
     ];
 
     const COOKIE_PATH = '/tmp/affilitestCookies';
@@ -41,9 +42,11 @@ class API {
         curl_setopt($this->curl, CURLOPT_COOKIEFILE, $this->cookiesFile);
         curl_setopt($this->curl, CURLOPT_POST, 1);
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->curl, CURLOPT_HTTPHEADER, [
+        if ($this->apiKey) {
+            curl_setopt($this->curl, CURLOPT_HTTPHEADER, [
             'Authorization: AT-API '. $this->apiKey
         ]);
+        }
     }
 
     function setCookieFile($path) {
@@ -76,9 +79,41 @@ class API {
         ]);
     }
 
+    function appInfo($url, $package = null, $country = '') {
+        if (empty($url) && empty($package)) {
+            throw new Exception('Missing URL/Package in appInfo call');
+        }
+
+        $data = [
+            'country' => $country
+        ];
+
+        if(!empty($url)) {
+            $data['url'] = $url;
+            return $this->get('appInfo', $data);
+        }
+        $data['package'] = $package;
+        return $this->get('appInfo', $data);
+    }
+
+    function callsLeft() {
+        return $this->get('callsLeft');
+    }
+
     private function post($endpoint, $data) {
         curl_setopt($this->curl, CURLOPT_URL, API::ENDPOINTS['main'] . API::ENDPOINTS[$endpoint]);
+        curl_setopt($this->curl, CURLOPT_POST, 1);
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, http_build_query($data));
+        return json_decode(curl_exec($this->curl));
+    }
+
+    private function get($endpoint, $data = null) {
+        curl_setopt($this->curl, CURLOPT_POST, 0);
+        $payload = '';
+        if(!empty($data)) {
+            $payload = '?' . http_build_query($data);
+        }
+        curl_setopt($this->curl, CURLOPT_URL, API::ENDPOINTS['main'] . API::ENDPOINTS[$endpoint] . $payload);
         return json_decode(curl_exec($this->curl));
     }
 }
