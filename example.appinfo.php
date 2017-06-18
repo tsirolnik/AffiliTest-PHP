@@ -14,11 +14,11 @@
 
 
   # Using Google Play Store package name
-  var_dump($api->appInfo('com.whatsapp'));
+  var_dump($api->appInfo(null, 'com.whatsapp'));
 
 
   # Calling the app info with an iTunes app store package
   # This requires specifying the country too.
   # The country is a two letter string as described by ISO 3166-alpha-2.
   # e.g - us for the United States, il for Israel, de for Germany and so on
-  var_dump($api->appInfo('310633997', 'us'));
+  var_dump($api->appInfo(null, '310633997', 'us'));
