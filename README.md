@@ -14,3 +14,6 @@ AffiliTest's API implemented in PHP
 
 ### App Info
  [Example code](example.appinfo.php)
+
+### Calls Left
+ [Example code](example.callsleft.php)
