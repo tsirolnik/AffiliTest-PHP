@@ -21,10 +21,12 @@ AffiliTest's API implemented in PHP
  [Example code](example.callsleft.php)
 
  #### Supported devices
-  Devices are located in [affilitest/API.php](affilitest/API.php) in the class Devices.
+  Devices are located in [affilitest/API.php](affilitest/API.php#L122) in the class Devices.
   * Android
   * iPhone
   * iPad
   * Desktop
   * Windows Phone
   * Blackberry
+
+  All of these devices are supported, using uppercase in the examples provided.
