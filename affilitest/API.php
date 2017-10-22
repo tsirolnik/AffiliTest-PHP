@@ -9,12 +9,12 @@ use CurlX;
 class API {
 
     const ENDPOINTS = [
-        'main' => 'https://affilitest.com',
-        'login' => '/user/login',
-        'test' => '/api/v1/test',
-        'compareToPreview' => '/api/v1/compareToPreview',
-        'appInfo' => '/api/v1/appInfo',
-        'callsLeft' => '/api/v1/callsLeft'
+        'main' => 'https://affilitest.com/',
+        'login' => 'user/login',
+        'test' => 'api/v1/test',
+        'compareToPreview' => 'api/v1/compareToPreview',
+        'appInfo' => 'api/v1/appInfo',
+        'callsLeft' => 'api/v1/callsLeft'
     ];
 
     const COOKIE_PATH = '/tmp/affilitestCookies';
