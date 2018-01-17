@@ -2,7 +2,7 @@
 
 namespace AffiliTest;
 
-require_once 'vendor/autoload.php';
+require_once __DIR__  . '/../vendor/autoload.php';
 
 use CurlX;
 
