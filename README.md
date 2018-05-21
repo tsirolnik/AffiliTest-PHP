@@ -18,6 +18,16 @@ AffiliTest's API implemented in PHP
   php composer.phar install
   ```
 
+#### Docker Image
+In order to run the Dockerfile run the following commands in the folder - 
+ ```bash
+ sudo docker build . -t affilitest/php
+ sudo docker run -p 8080:80 --name affilitest -dt affilitest/php
+ ```
+You will be able to run the files via accessing your localhost on port 8080 as in - 
+``` http://localhost:8080/example.testing.php ```
+You can obivously change the Dockerfile as you would like.
+
 ## Examples of usage
 
 ### Testing
