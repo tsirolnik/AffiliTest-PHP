@@ -38,14 +38,15 @@ class API {
 
     private function setupCurl() {
         $this->curl = curl_init();
-        curl_setopt($this->curl, CURLOPT_COOKIEJAR, $this->cookiesFile);
-        curl_setopt($this->curl, CURLOPT_COOKIEFILE, $this->cookiesFile);
         curl_setopt($this->curl, CURLOPT_POST, 1);
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         if ($this->apiKey) {
             curl_setopt($this->curl, CURLOPT_HTTPHEADER, [
-            'Authorization: AT-API '. $this->apiKey
-        ]);
+                'Authorization: AT-API '. $this->apiKey
+            ]);
+        } else {
+            curl_setopt($this->curl, CURLOPT_COOKIEJAR, $this->cookiesFile);
+            curl_setopt($this->curl, CURLOPT_COOKIEFILE, $this->cookiesFile);
         }
     }
 
@@ -104,7 +105,11 @@ class API {
         curl_setopt($this->curl, CURLOPT_URL, API::ENDPOINTS['main'] . API::ENDPOINTS[$endpoint]);
         curl_setopt($this->curl, CURLOPT_POST, 1);
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, http_build_query($data));
-        return json_decode(curl_exec($this->curl));
+        $exec = curl_exec($this->curl);
+        if($exec === false) {
+            throw new Exception(curl_error($this->curl));
+        }
+        return json_decode($exec);
     }
 
     private function get($endpoint, $data = null) {
@@ -114,7 +119,11 @@ class API {
             $payload = '?' . http_build_query($data);
         }
         curl_setopt($this->curl, CURLOPT_URL, API::ENDPOINTS['main'] . API::ENDPOINTS[$endpoint] . $payload);
-        return json_decode(curl_exec($this->curl));
+        $exec = curl_exec($this->curl);
+        if($exec === false) {
+            throw new Exception(curl_error($this->curl));
+        }
+        return json_decode($exec);
     }
 }
 

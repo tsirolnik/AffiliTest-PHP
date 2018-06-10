@@ -11,14 +11,20 @@ class APIMulti extends API {
     function __construct($apiKey = null, $concurrency = 10, $cookiesFile = API::COOKIE_PATH) {
         parent::__construct($apiKey, $concurrency, $cookiesFile);
         $this->agent = new CurlX\Agent($concurrency);
-        $this->agent->options = [
-            CURLOPT_COOKIEJAR => $this->cookiesFile,
-            CURLOPT_COOKIEFILE => $this->cookiesFile,
-            CURLOPT_POST => 1,
-            CURLOPT_HTTPHEADER => [
-              'Authorization: AT-API '. $this->apiKey,
-            ]
-        ];
+        if($apiKey) {
+            $this->agent->options = [
+                CURLOPT_COOKIEJAR => $this->cookiesFile,
+                CURLOPT_COOKIEFILE => $this->cookiesFile,
+                CURLOPT_POST => 1
+            ];
+        } else {
+            $this->agent->options = [
+                CURLOPT_POST => 1,
+                CURLOPT_HTTPHEADER => [
+                  'Authorization: AT-API '. $this->apiKey,
+                ]
+            ];
+        }
     }
 
     function queueTest($url, $country, $device, callable $testCallback) {
