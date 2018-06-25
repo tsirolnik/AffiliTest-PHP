@@ -3,7 +3,8 @@
   require('affilitest/API.php');
   require('affilitest/APIMulti.php');
 
-  // Concurrency of 5
+  // You can replace "null" with your API key
+    // Concurrency of 5
   $api = new AffiliTest\APIMulti(null, 5);
 
   var_dump($api->login('<email>', '<password>'));
@@ -11,12 +12,11 @@
   // Needed as curl saves cookies to disk only on curl_close
   $api->closeCurl();
 
-  $urls = [
-      'http://cnn.com',
-      'http://yahoo.com',
-      'http://google.com',
-      'http://bloomberg.com',
-      'http://nytimes.com'
+  $offers = [
+      ['http://tracking.com', 'us', AffiliTest\Devices::ANDROID],
+      ['http://tracking.com', 'il', AffiliTest\Devices::IPHONE],
+      ['http://tracking.com', 'it', AffiliTest\Devices::ANDROID],
+      ['http://tracking.com', 'de', AffiliTest\Devices::IPHONE],
   ];
 
   // A callback that will be called on every response
@@ -24,8 +24,16 @@
     var_dump($request->response);
   }
 
-  foreach ($urls as $url) {
-       $api->queueTest($url, 'us', AffiliTest\Devices::ANDROID , 'onTestFinishedCallback');
+  foreach ($offers as $offer) {
+    list($url, $country, $device) = $offer;
+    // Perform a regular test
+    $api->queueTest($url, $country, $device , 'onTestFinishedCallback');
+  }
+
+  foreach ($offers as $offer) {
+    list($url, $country, $device) = $offer;
+    // Perform a compare to preview test
+    $api->queueCompareToPreview($url, $country, $device, 'http://previewURL.com', 'onTestFinishedCallback');
   }
 
   $api->execute();
