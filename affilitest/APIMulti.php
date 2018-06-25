@@ -13,16 +13,16 @@ class APIMulti extends API {
         $this->agent = new CurlX\Agent($concurrency);
         if($apiKey) {
             $this->agent->options = [
-                CURLOPT_COOKIEJAR => $this->cookiesFile,
-                CURLOPT_COOKIEFILE => $this->cookiesFile,
-                CURLOPT_POST => 1
-            ];
-        } else {
-            $this->agent->options = [
                 CURLOPT_POST => 1,
                 CURLOPT_HTTPHEADER => [
                   'Authorization: AT-API '. $this->apiKey,
                 ]
+            ];
+        } else {
+            $this->agent->options = [
+                CURLOPT_COOKIEJAR => $this->cookiesFile,
+                CURLOPT_COOKIEFILE => $this->cookiesFile,
+                CURLOPT_POST => 1
             ];
         }
     }
