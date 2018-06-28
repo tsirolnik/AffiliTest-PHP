@@ -13,6 +13,7 @@ class APIMulti extends API {
         $this->agent = new CurlX\Agent($concurrency);
         if($apiKey) {
             $this->agent->options = [
+                CURLOPT_TIMEOUT => 90,
                 CURLOPT_POST => 1,
                 CURLOPT_HTTPHEADER => [
                   'Authorization: AT-API '. $this->apiKey,
@@ -20,9 +21,10 @@ class APIMulti extends API {
             ];
         } else {
             $this->agent->options = [
+                CURLOPT_TIMEOUT => 90,
+                CURLOPT_POST => 1,
                 CURLOPT_COOKIEJAR => $this->cookiesFile,
                 CURLOPT_COOKIEFILE => $this->cookiesFile,
-                CURLOPT_POST => 1
             ];
         }
     }
