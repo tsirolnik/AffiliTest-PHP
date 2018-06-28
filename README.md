@@ -31,14 +31,14 @@ You can obivously change the Dockerfile as you would like.
 ## Examples of usage
 
 ### Testing
-  * Regular testing and compare to preview - [Example code](example.php)
-  * Multithreaded example (Checking multiple offers) - [Example code](example.multi.php)
+  * Regular testing and compare to preview - [Example code](examples/testing.php)
+  * Multithreaded example (Checking multiple offers) - [Example code](examples/testing.multi.php)
 
 ### App Info
- [Example code](example.appinfo.php)
+ [Example code](examples/appinfo.php)
 
 ### Calls Left
- [Example code](example.callsleft.php)
+ [Example code](examples/callsleft.php)
 
 ### Retrieving HTTP Status codes
   In order to view the redirections' status codes, a query string is needed to be appended to the endpoints.
