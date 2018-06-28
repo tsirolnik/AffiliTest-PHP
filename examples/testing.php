@@ -1,6 +1,6 @@
 <?php
 
-  require('affilitest/API.php');
+  require('../affilitest/API.php');
 
   // You can use your API key as an argument to the constructor
   // $api = new AffiliTest\API(<api key>);

@@ -1,6 +1,6 @@
 <?php
 
-  require('affilitest/API.php');
+  require('../affilitest/API.php');
 
   $api = new AffiliTest\API();
 

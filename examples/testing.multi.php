@@ -1,6 +1,6 @@
 <?php
 
-  require('affilitest/API.php');
+  require('../affilitest/API.php');
   require('affilitest/APIMulti.php');
 
   // You can replace "null" with your API key
